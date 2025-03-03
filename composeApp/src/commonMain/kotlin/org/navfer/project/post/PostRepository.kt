@@ -47,14 +47,18 @@ class PostRepository {
         }
     }
 
-    suspend fun crearNuevoPost(post: Post): Boolean{
-        val response: HttpResponse =
-            client.post("http://localhost:8080/post") {
+    suspend fun crearNuevoPost(post: Post): Boolean {
+        return try {
+            val response: HttpResponse = client.post("http://localhost:8080/posts") {
                 contentType(ContentType.Application.Json)
                 setBody(post)
             }
-        return response.status== HttpStatusCode.Created
+            response.status == HttpStatusCode.Created
+        } catch (e: Exception) {
+            false
+        }
     }
+
 
 
     suspend fun getAllPosts(): List<Post>? {
