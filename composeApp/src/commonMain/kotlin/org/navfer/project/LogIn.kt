@@ -43,7 +43,7 @@ fun LogIn(viewModel: AppViewModel,navController: NavHostController, modifier: Mo
             verticalArrangement = Arrangement.Center,
         ) {
             Text(
-                text = "Iniciar Sesión",
+                text = "I n i c i a r  S e s i ó n",
                 style = androidx.compose.material3.MaterialTheme.typography.headlineMedium,
                 modifier = Modifier.padding(bottom = 16.dp)
             )

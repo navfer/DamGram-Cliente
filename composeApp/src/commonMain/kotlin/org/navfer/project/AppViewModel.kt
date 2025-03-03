@@ -50,4 +50,13 @@ class AppViewModel (var userRepository: UserRepository, var postRepository: Post
         }
         return resultado
     }
+
+    fun subirPost(post: Post): Boolean{
+        val resultado = runBlocking {
+            postRepository.crearNuevoPost(post)
+        }
+        return resultado
+    }
+
+
 }

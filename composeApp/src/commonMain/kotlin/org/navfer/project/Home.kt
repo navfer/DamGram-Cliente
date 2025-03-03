@@ -58,8 +58,8 @@ fun Home(vm: AppViewModel,modifier: Modifier = Modifier, salir: () -> Unit) {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 when (selected) {
                     AppDestinations.HOME -> Bienvenida()
-                    AppDestinations.DESCUBRIR -> DescubrirMain()
-                    AppDestinations.NEW -> NewMain()
+                    AppDestinations.DESCUBRIR -> DescubrirMain(vm)
+                    AppDestinations.NEW -> NewMain(vm)
                     AppDestinations.PERFIL -> PerfilMain(vm)
                     AppDestinations.SALIR -> {}
                 }
