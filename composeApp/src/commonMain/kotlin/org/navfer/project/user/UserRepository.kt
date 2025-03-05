@@ -49,19 +49,22 @@ class UserRepository {
     }
 
     suspend fun getUser(username: String): UserSerializable? {
-        return try {
-            val response: HttpResponse = client.get("http://localhost:8080/users/username/$username")
-            if (response.status == HttpStatusCode.OK) {
-                response.body()
-            } else {
-                null
-            }
-        } catch (e: Exception) {
-            println("Error al obtener el usuario: ${e.message}")
+        val response: HttpResponse = client.get("http://localhost:8080/users/username/$username")
+        return if (response.status == HttpStatusCode.OK) {
+            response.body()
+        } else {
             null
         }
     }
 
 
+    suspend fun getUserById(userId: String): UserSerializable?{
+        val response: HttpResponse = client.get("http://localhost:8080/users/$userId")
+        return if(response.status == HttpStatusCode.OK){
+            response.body()
+        }else{
+            null
+        }
+    }
 
 }

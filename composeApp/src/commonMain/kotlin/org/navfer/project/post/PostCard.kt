@@ -17,25 +17,29 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import org.navfer.project.AppViewModel
+import org.navfer.project.user.UserSerializable
 import java.io.ByteArrayInputStream
 import java.util.Base64
 
 @Composable
 fun PostCard(
     modifier: Modifier = Modifier,
+    vm: AppViewModel,
     item: Post,
     ver: (Post) -> Unit
 ) {
     val postImage: ImageBitmap? = item.image?.let { base64Normal(it) }
-
+    val userPost: UserSerializable? = vm.buscarUsuarioId(item.userId)
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp)
-                .border(2.dp, MaterialTheme.colorScheme.onSurface.copy(alpha = 0.12f), RoundedCornerShape(8.dp)) // Borde gris con esquinas redondeadas
+                .padding(8.dp)  //entre los post
+                .border(2.dp, MaterialTheme.colorScheme.onSurface.copy(alpha = 0.12f), RoundedCornerShape(8.dp))
+                .padding(16.dp) //para lo de dentro
         ) {
             Text(
-                text = item.userId,
+                text = "@${userPost!!.username}",
                 fontWeight = FontWeight.Bold,
                 style = MaterialTheme.typography.bodyMedium
             )
@@ -45,7 +49,6 @@ fun PostCard(
             Text(
                 text = item.info,
                 style = MaterialTheme.typography.bodyLarge,
-                textAlign = TextAlign.Center
             )
 
             Spacer(modifier = Modifier.height(8.dp))
@@ -65,25 +68,18 @@ fun PostCard(
             Spacer(modifier = Modifier.height(8.dp))
             //enseña la cantidad de likes y comentarios
             Row(
-                horizontalArrangement = Arrangement.Start,
-                //verticalAlignment = Alignment.CenterVertically
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "Likes: ${item.likes.size}",
-                    style = MaterialTheme.typography.bodySmall
-                )
-
-                Spacer(modifier = Modifier.width(16.dp))
-
-                Text(
-                    text = "Comentarios: ${item.comments.size}",
-                    style = MaterialTheme.typography.bodySmall
+                    text = "Likes: ${item.likes.size}\nComentarios: ${item.comments.size}",
+                    style = MaterialTheme.typography.bodySmall,
+                    modifier = Modifier.weight(1f)
                 )
 
                 //boton para entrar en la publicacion
                 Button(
                     onClick = { ver(item) },
-                    modifier = Modifier.align(Alignment.CenterVertically)
                 ) {
                     Text("Ver más")
                 }

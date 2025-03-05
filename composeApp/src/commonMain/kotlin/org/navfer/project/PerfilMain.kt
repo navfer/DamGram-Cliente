@@ -84,6 +84,7 @@ fun PerfilMain(viewModel: AppViewModel, modifier: Modifier = Modifier) {
             ) {
                 items(postUsuario) { post ->
                     PostCard(
+                        vm = viewModel,
                         item = post,
                         ver = {  }
                     )

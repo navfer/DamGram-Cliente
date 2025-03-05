@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.navfer.project.post.Post
@@ -20,6 +21,14 @@ class AppViewModel (var userRepository: UserRepository, var postRepository: Post
 
     private val _postTotales = MutableStateFlow<List<Post>>(emptyList())
     val postTotales: StateFlow<List<Post>> get() = _postTotales
+
+    private val _selected = MutableStateFlow<Post?>(null)
+    val selected: StateFlow<Post?> = _selected.asStateFlow()
+
+
+    fun setSelected(post: Post) {
+        _selected.value = post
+    }
 
     fun inicializarUsuario(username: String) {
         viewModelScope.launch {
@@ -47,6 +56,7 @@ class AppViewModel (var userRepository: UserRepository, var postRepository: Post
 
 
     fun validate(name: String, password: String): Boolean {
+
         var resultado= runBlocking {
             userRepository.login(name,password)
         }
@@ -64,8 +74,47 @@ class AppViewModel (var userRepository: UserRepository, var postRepository: Post
         val resultado = runBlocking {
             postRepository.crearNuevoPost(post)
         }
+        if (resultado) {
+            inicializarUsuario(user.value!!.username)
+            inicializarPosts()
+        }
         return resultado
     }
 
+    fun buscarUsuarioId(userId: String): UserSerializable?{
+        val resultado = runBlocking {
+            userRepository.getUserById(userId)
+        }
+        return resultado
+    }
+
+    fun enviarComentario( postId:String, comentario:String): Boolean{
+        val resultado = runBlocking {
+            postRepository.addComment(postId, user.value!!.id!!, comentario)
+        }
+        if (resultado) {
+            actualizar(postId)
+        }
+
+        return resultado
+    }
+
+    fun enviarLike(postId: String): Boolean{
+        val resultado = runBlocking {
+            postRepository.addLike(postId, user.value!!.id!!)
+        }
+        if (resultado) {
+            actualizar(postId)
+        }
+        return resultado
+    }
+
+    fun actualizar(postId: String){
+        viewModelScope.launch {
+            _postTotales.value = postRepository.getAllPosts() ?: emptyList()
+            _postUsuario.value = user.value?.id?.let { postRepository.getPostUsuario(it) } ?: emptyList()
+            _selected.value = _postTotales.value.find { it.id == postId }
+         }
+    }
 
 }
