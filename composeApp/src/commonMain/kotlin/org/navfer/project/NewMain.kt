@@ -50,7 +50,7 @@ fun NewMain(vm: AppViewModel, modifier: Modifier = Modifier) {
     }
 
     Box(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize().padding(100.dp),
         contentAlignment = Alignment.Center
     ) {
         Column(

@@ -54,16 +54,11 @@ fun PostDetalle(
 
 
     if (post == null) {
-        /*
-        Image(
-            painter = painterResource(Res.drawable.machape),
-            contentDescription = "Machape",
-            modifier = Modifier.fillMaxWidth().height(200.dp)
-        )
 
-         */
+
         return
-    }else{
+    }
+    else{
         var likeDisponible by remember(post.likes) {
             mutableStateOf(!post.likes.contains(Like(vm.user.value?.id)))
         }
@@ -124,10 +119,12 @@ fun PostDetalle(
                     //texto del post
                     Text(
                         text = post!!.info,
-                        style = MaterialTheme.typography.titleMedium,
+                        style = MaterialTheme.typography.bodySmall,
+                        fontWeight = FontWeight.Bold
+
                     )
 
-                    Spacer(modifier = Modifier.height(8.dp))
+                    Spacer(modifier = Modifier.height(16.dp))
                     //fecha likes y comentarios totales
                     Text(
                         text = "Fecha de publicación: ${post.timestamp}\nLikes: ${post.likes.size}\nComentarios: ${post.comments.size}",
@@ -206,7 +203,8 @@ fun PostDetalle(
             Spacer(modifier = Modifier.weight(1f))
             Row() {
                 Text(
-                    text = mensaje
+                    text = mensaje,
+                    fontWeight = FontWeight.SemiBold
                 )
             }
         }

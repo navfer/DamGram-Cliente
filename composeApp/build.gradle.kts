@@ -120,6 +120,7 @@ dependencies {
     implementation(libs.androidx.material3.android)
     implementation(libs.androidx.runtime.livedata)
     implementation(libs.firebase.firestore.ktx)
+    implementation(libs.androidx.ui.android)
     debugImplementation(compose.uiTooling)
 }
 
