@@ -26,7 +26,7 @@ class AppViewModel (var userRepository: UserRepository, var postRepository: Post
     val selected: StateFlow<Post?> = _selected.asStateFlow()
 
 
-    fun setSelected(post: Post) {
+    fun setSelected(post: Post?) {
         _selected.value = post
     }
 

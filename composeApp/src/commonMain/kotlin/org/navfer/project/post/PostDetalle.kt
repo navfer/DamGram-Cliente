@@ -14,8 +14,10 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AlternateEmail
 import androidx.compose.material.icons.filled.ArrowCircleLeft
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -32,9 +34,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import damgram.composeapp.generated.resources.Res
 import org.jetbrains.compose.resources.painterResource
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 
 @Composable
@@ -54,7 +60,23 @@ fun PostDetalle(
 
 
     if (post == null) {
-
+        Column(
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(8.dp)
+                .border(2.dp, MaterialTheme.colorScheme.onSurface.copy(alpha = 0.12f), RoundedCornerShape(8.dp)) // Borde gris con esquinas redondeadas
+                .padding(16.dp), //para lo de dentro
+            //horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            Icon(
+                imageVector = Icons.Default.AlternateEmail,
+                contentDescription = "Inicio",
+                tint = Color.Gray, // cambia el color
+                modifier = Modifier.size(96.dp)// cambia el tamaño
+            )
+        }
 
         return
     }
@@ -62,6 +84,10 @@ fun PostDetalle(
         var likeDisponible by remember(post.likes) {
             mutableStateOf(!post.likes.contains(Like(vm.user.value?.id)))
         }
+        val timestamp = post.timestamp
+        val date = Date(timestamp)  //se transforma en objeto Date
+        val dateFormat = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
+        val fechaConFormato = dateFormat.format(date)
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -84,7 +110,11 @@ fun PostDetalle(
 
                 //boton de volver
                 if (!expandido) {
-                    Button(onClick = { atras() }) {
+                    Button(
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = Color.Gray
+                        ),
+                        onClick = { atras() }) {
                         Icon(
                             imageVector = Icons.Default.ArrowCircleLeft,
                             contentDescription = "Volver",
@@ -109,12 +139,13 @@ fun PostDetalle(
                     postImage?.let { image ->
                         Image(
                             bitmap = image,
-                            contentDescription = "Imagen del post",
+                            contentDescription = "Imagen",
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .height(200.dp),
                         )
                     }
+                    Spacer(modifier = Modifier.height(25.dp))
 
                     //texto del post
                     Text(
@@ -127,7 +158,7 @@ fun PostDetalle(
                     Spacer(modifier = Modifier.height(16.dp))
                     //fecha likes y comentarios totales
                     Text(
-                        text = "Fecha de publicación: ${post.timestamp}\nLikes: ${post.likes.size}\nComentarios: ${post.comments.size}",
+                        text = "Fecha de publicación: ${fechaConFormato}\nLikes: ${post.likes.size}\nComentarios: ${post.comments.size}",
                         style = MaterialTheme.typography.bodySmall,
 
                         )
@@ -173,6 +204,9 @@ fun PostDetalle(
                         horizontalArrangement = Arrangement.SpaceBetween
                     ){
                         Button(
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = Color.Gray
+                            ),
                             enabled = likeDisponible,
                             onClick = {
                                 var enviarLike = vm.enviarLike(post.id!!)
@@ -185,6 +219,9 @@ fun PostDetalle(
                         }
 
                         Button(
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = Color.Gray
+                            ),
                             enabled = enabledButton,
                             onClick = {
                                 var envio = vm.enviarComentario(post.id!!,comentario)

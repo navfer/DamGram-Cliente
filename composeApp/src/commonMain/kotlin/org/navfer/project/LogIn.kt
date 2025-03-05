@@ -21,6 +21,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
@@ -43,10 +44,28 @@ fun LogIn(viewModel: AppViewModel,navController: NavHostController, modifier: Mo
             verticalArrangement = Arrangement.Center,
         ) {
             Text(
+                text = "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -",
+                style = androidx.compose.material3.MaterialTheme.typography.headlineMedium,
+                modifier = Modifier.padding(bottom = 16.dp),
+                color = Color.Gray
+            )
+
+
+            Text(
                 text = "I n i c i a r  S e s i ó n",
                 style = androidx.compose.material3.MaterialTheme.typography.headlineMedium,
-                modifier = Modifier.padding(bottom = 16.dp)
+                modifier = Modifier.padding(bottom = 16.dp),
+                color = Color.Gray
             )
+
+            Text(
+                text = "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -",
+                style = androidx.compose.material3.MaterialTheme.typography.headlineMedium,
+                modifier = Modifier.padding(bottom = 16.dp),
+                color = Color.Gray
+            )
+            Spacer(modifier = Modifier.height(20.dp))
+
             // Campo de usuario
             OutlinedTextField(
                 value = username,
@@ -74,8 +93,15 @@ fun LogIn(viewModel: AppViewModel,navController: NavHostController, modifier: Mo
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            Row(modifier = Modifier.padding(2.dp)){
+            Row(
+                modifier = Modifier
+                    .padding(2.dp),
+                horizontalArrangement = Arrangement.spacedBy(20.dp)
+            ){
                 Button(
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color.Gray
+                    ),
                     onClick = {
                         if (loginFunction != null) {
                             val success = loginFunction(username, password)
@@ -88,14 +114,20 @@ fun LogIn(viewModel: AppViewModel,navController: NavHostController, modifier: Mo
                             }
                         }
                     },
-                    enabled = enabledButton
+                    enabled = enabledButton,
+
 
                 ) {
                     Text("Iniciar Sesión")
                 }
 
+                Spacer(modifier = Modifier.height(20.dp))
+
 
                 Button(
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color.Gray
+                    ),
                         onClick = {
                             navController.navigate("registro")
                         }

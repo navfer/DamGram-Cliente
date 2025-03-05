@@ -6,6 +6,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.loadImageBitmap
@@ -60,10 +61,14 @@ fun NewMain(vm: AppViewModel, modifier: Modifier = Modifier) {
             Text(
                 text = "N u e v o  P o s t",
                 style = androidx.compose.material3.MaterialTheme.typography.headlineMedium,
-                modifier = Modifier.padding(bottom = 16.dp)
+                modifier = Modifier.padding(bottom = 16.dp),
+                color = Color.Gray
             )
             Spacer(modifier = Modifier.height(8.dp))
             Button(
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color.Gray
+                ),
                 onClick = { isImageDialogOpen = true }
             ) {
                 Text("Agregar imagen")
@@ -82,6 +87,9 @@ fun NewMain(vm: AppViewModel, modifier: Modifier = Modifier) {
             )
             Spacer(modifier = Modifier.height(8.dp))
             Button(
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color.Gray
+                ),
                 onClick = {
                     // Crear un nuevo Post
                     val nuevoPost = Post(

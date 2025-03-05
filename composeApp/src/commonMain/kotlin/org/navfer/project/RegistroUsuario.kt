@@ -14,6 +14,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.loadImageBitmap
@@ -61,7 +62,8 @@ fun RegistroUsuario(navController: NavHostController, modifier: Modifier = Modif
             Text(
                 text = "N U E V O  U S U A R I O",
                 style = androidx.compose.material3.MaterialTheme.typography.headlineMedium,
-                modifier = Modifier.padding(bottom = 16.dp)
+                modifier = Modifier.padding(bottom = 16.dp),
+                color = Color.Gray
             )
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -106,7 +108,11 @@ fun RegistroUsuario(navController: NavHostController, modifier: Modifier = Modif
             }
 
             Spacer(modifier = Modifier.height(16.dp))
-            Button(onClick = { isImageDialogOpen = true }) {
+            Button(
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color.Gray
+                ),
+                onClick = { isImageDialogOpen = true }) {
                 Text("Seleccionar Avatar")
             }
 
@@ -114,6 +120,9 @@ fun RegistroUsuario(navController: NavHostController, modifier: Modifier = Modif
 
             Row(modifier = Modifier.padding(2.dp)) {
                 Button(
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color.Gray
+                    ),
                     onClick = {
                         if (registerFunction != null) {
                             val success = registerFunction(usuario, password,

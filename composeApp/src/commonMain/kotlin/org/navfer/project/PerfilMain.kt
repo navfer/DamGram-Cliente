@@ -51,7 +51,7 @@ fun PerfilMain(viewModel: AppViewModel, modifier: Modifier = Modifier) {
     }
 
     val postUsuario: List<Post> = viewModel.postUsuario.value
-
+    viewModel.setSelected(null)
     Scaffold(
         topBar = {
             Row(modifier = Modifier

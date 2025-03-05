@@ -15,6 +15,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import org.navfer.project.AppViewModel
@@ -79,9 +80,12 @@ fun PostCard(
 
                 //boton para entrar en la publicacion
                 Button(
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color.Gray
+                    ),
                     onClick = { ver(item) },
                 ) {
-                    Text("Ver más")
+                    Text(". . .")
                 }
             }
         }
