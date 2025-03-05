@@ -13,7 +13,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import org.navfer.project.descubrir.DescubrirMain
 
 enum class AppDestinations(
     val label: String,
@@ -57,7 +56,7 @@ fun Home(vm: AppViewModel,modifier: Modifier = Modifier, salir: () -> Unit) {
         ) {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 when (selected) {
-                    AppDestinations.HOME -> Bienvenida()
+                    AppDestinations.HOME -> Bienvenida(vm)
                     AppDestinations.DESCUBRIR -> DescubrirMain(vm)
                     AppDestinations.NEW -> NewMain(vm)
                     AppDestinations.PERFIL -> PerfilMain(vm)

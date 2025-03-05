@@ -81,6 +81,7 @@ fun LogIn(viewModel: AppViewModel,navController: NavHostController, modifier: Mo
                             val success = loginFunction(username, password)
                             if (success) {
                                 viewModel.inicializarUsuario(username)
+                                //viewModel.inicializarPosts()
                                 navController.navigate("home")
                             } else {
                                 showError = true

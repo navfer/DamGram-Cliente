@@ -18,8 +18,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun Bienvenida(){
-
+fun Bienvenida(vm: AppViewModel){
+    vm.inicializarPosts()
+    //vm.user.value?.let { vm.inicializarUsuario(it.username) }
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
@@ -39,8 +40,8 @@ fun Bienvenida(){
             Icon(
                 imageVector = Icons.Default.Cake,
                 contentDescription = "Pokemon",
-                tint = MaterialTheme.colorScheme.primary, // Cambia el color
-                modifier = Modifier.size(96.dp)// Cambia el tamaño
+                tint = MaterialTheme.colorScheme.primary, // cambia el color
+                modifier = Modifier.size(96.dp)// cambia el tamaño
             )
         }
     }

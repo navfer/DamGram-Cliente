@@ -18,6 +18,9 @@ class AppViewModel (var userRepository: UserRepository, var postRepository: Post
     private val _postUsuario = MutableStateFlow<List<Post>>(emptyList())
     val postUsuario: StateFlow<List<Post>> get() = _postUsuario
 
+    private val _postTotales = MutableStateFlow<List<Post>>(emptyList())
+    val postTotales: StateFlow<List<Post>> get() = _postTotales
+
     fun inicializarUsuario(username: String) {
         viewModelScope.launch {
             //cargamos el usuario que ha iniciado la sesion
@@ -25,7 +28,6 @@ class AppViewModel (var userRepository: UserRepository, var postRepository: Post
             _user.value = userResult
 
             if (userResult != null) {
-                // Obtener los posts del usuario
                 val postResult = userResult.id?.let { postRepository.getPostUsuario(it) }
                 if (postResult != null) {
                     _postUsuario.value = postResult
@@ -33,6 +35,13 @@ class AppViewModel (var userRepository: UserRepository, var postRepository: Post
                     _postUsuario.value = emptyList()
                 }
             }
+        }
+    }
+
+    fun inicializarPosts(){
+        viewModelScope.launch {
+            val posts = postRepository.getAllPosts() ?: emptyList()
+            _postTotales.value = posts
         }
     }
 
