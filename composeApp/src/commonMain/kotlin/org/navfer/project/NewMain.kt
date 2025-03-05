@@ -29,7 +29,7 @@ fun NewMain(vm: AppViewModel, modifier: Modifier = Modifier) {
     var imagenBase64 by remember { mutableStateOf<String?>(null) }
     var info by remember { mutableStateOf("") }
     var isImageDialogOpen by remember { mutableStateOf(false) }
-    val enabledButton by remember(info) { mutableStateOf(info.isNotBlank() && info.length <= 50) }  //reactivo solo se puede enviar publicacion si cumple las condiciones
+    val enabledButton by remember(info) { mutableStateOf(info.isNotBlank() && info.length <= 200) }  //reactivo solo se puede enviar publicacion si cumple las condiciones
     var mensaje by remember { mutableStateOf("") }
 
     //Convierte a Base64 la imagen
