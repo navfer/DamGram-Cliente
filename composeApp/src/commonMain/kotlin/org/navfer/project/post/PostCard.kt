@@ -16,6 +16,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import java.io.ByteArrayInputStream
 import java.util.Base64
 
@@ -27,16 +28,11 @@ fun PostCard(
 ) {
     val postImage: ImageBitmap? = item.image?.let { base64Normal(it) }
 
-    Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(16.dp)
-            .border(2.dp, MaterialTheme.colorScheme.onSurface.copy(alpha = 0.12f), RoundedCornerShape(8.dp)) // Borde gris con esquinas redondeadas
-    ) {
         Column(
             modifier = Modifier
-                .weight(1f)
-                .padding(end = 16.dp)
+                .fillMaxWidth()
+                .padding(16.dp)
+                .border(2.dp, MaterialTheme.colorScheme.onSurface.copy(alpha = 0.12f), RoundedCornerShape(8.dp)) // Borde gris con esquinas redondeadas
         ) {
             Text(
                 text = item.userId,
@@ -48,7 +44,8 @@ fun PostCard(
 
             Text(
                 text = item.info,
-                style = MaterialTheme.typography.bodyLarge
+                style = MaterialTheme.typography.bodyLarge,
+                textAlign = TextAlign.Center
             )
 
             Spacer(modifier = Modifier.height(8.dp))
@@ -69,7 +66,7 @@ fun PostCard(
             //enseña la cantidad de likes y comentarios
             Row(
                 horizontalArrangement = Arrangement.Start,
-                verticalAlignment = Alignment.CenterVertically
+                //verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
                     text = "Likes: ${item.likes.size}",
@@ -92,9 +89,8 @@ fun PostCard(
                 }
             }
         }
-
     }
-}
+
 
 // Función para convertir Base64 a ImageBitmap
 fun base64Normal(base64: String): ImageBitmap? {
