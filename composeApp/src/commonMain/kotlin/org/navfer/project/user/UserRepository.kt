@@ -41,7 +41,7 @@ class UserRepository {
 
     suspend fun postUser(username: String,password: String,avatar:String): Boolean{
         val response: HttpResponse =
-            client.post("http://localhost:8080/user") {
+            client.post("http://localhost:8080/users") {
                 contentType(ContentType.Application.Json)
                 setBody(UserCreado(username= username,password = password,avatar = avatar))
             }
